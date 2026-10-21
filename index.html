@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ЭкоНива Баллы — прототип</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg class="icon-defs" aria-hidden="true">
+  <defs>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 7h12l-1.2 13.5a1 1 0 0 1-1 .9H8.2a1 1 0 0 1-1-.9L6 7z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 7a3 3 0 1 1 6 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8.2" r="3.6" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4.5 19.5c0-3.8 3.6-6 7.5-6s7.5 2.2 7.5 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="6" r="2.1" fill="var(--bg)" stroke="currentColor" stroke-width="1.8"/><line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="9" cy="12" r="2.1" fill="var(--bg)" stroke="currentColor" stroke-width="1.8"/><line x1="4" y1="18" x2="20" y2="18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="16.5" cy="18" r="2.1" fill="var(--bg)" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 2.5c1.6 3.1-2.4 4.4-2.4 7.7a2.4 2.4 0 0 0 4.8 0c0-.8-.5-1.3-.5-1.3 1.6.9 2.6 2.6 2.6 4.4a5.1 5.1 0 1 1-10.2 0c0-4.3 3.4-5.9 3.4-7.8 0-1-.2-1.8-.7-2.6 1 .1 2.1.7 3 3.2-.3-1.8z" fill="currentColor" stroke="currentColor" stroke-width="0.6" stroke-linejoin="round"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M4.5 19.5c8.5 0 15-6.5 15-15-8.5 0-15 6.5-15 15z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M5 19c4-6 8-10 14.5-14.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M3.5 7.3L12 3.5l8.5 3.8L12 11 3.5 7.3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M3.5 7.3v9.4L12 20.5l8.5-3.8V7.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 11v9.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 12h6M12 9v6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.8 4.8L19 7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-can" viewBox="0 0 24 24"><ellipse cx="12" cy="5.2" rx="4.4" ry="1.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M7.6 5.2v13.6c0 .77 1.97 1.4 4.4 1.4s4.4-.63 4.4-1.4V5.2" fill="none" stroke="currentColor" stroke-width="1.6"/><ellipse cx="12" cy="18.8" rx="4.4" ry="1.4" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M12 21V11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 13c0-4.2 3.6-5.4 7-4.8.3 4.1-3 6.3-7 5.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 15.5c0-3.2-2.9-4.3-6-3.7-.3 3.3 2.3 5.1 6 4.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-seed" viewBox="0 0 24 24"><ellipse cx="12" cy="14.5" rx="3.3" ry="4.2" fill="currentColor"/><path d="M9.3 13.5c0-2.8 1-4.6 2.7-6.3" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-sapling" viewBox="0 0 24 24"><path d="M12 21v-6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 8.5c3 0 5.2 2.4 5.2 6H6.8c0-3.6 2.2-6 5.2-6z" fill="currentColor"/></symbol>
+    <symbol id="i-tree" viewBox="0 0 24 24"><path d="M12 21v-5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M12 5.5c3.3 0 5.6 2.6 5.6 6H6.4c0-3.4 2.3-6 5.6-6z" fill="currentColor"/><path d="M12 9.8c2.5 0 4.3 2 4.3 4.4H7.7c0-2.4 1.8-4.4 4.3-4.4z" fill="currentColor"/></symbol>
+    <symbol id="i-truck" viewBox="0 0 24 24"><rect x="1.5" y="10" width="10.5" height="6.5" rx="1" fill="currentColor"/><path d="M12 12.3h3.6L18.5 15v1.5H12z" fill="currentColor"/><circle cx="6" cy="18" r="1.7" fill="var(--bg)" stroke="currentColor" stroke-width="1.4"/><circle cx="15.5" cy="18" r="1.7" fill="var(--bg)" stroke="currentColor" stroke-width="1.4"/></symbol>
+    <symbol id="i-cow" viewBox="0 0 24 24"><path d="M6 8c-1.5-1-2-3 .2-3.6M18 8c1.5-1 2-3-.2-3.6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><ellipse cx="12" cy="12.6" rx="7" ry="6" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="11" r="0.9" fill="currentColor"/><circle cx="15" cy="11" r="0.9" fill="currentColor"/><path d="M9 15.6c1 .8 5 .8 6 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M9 7.4c1.3-.9 4.7-.9 6 0" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-factory" viewBox="0 0 24 24"><path d="M3 20.5V11l5 3V11l5 3V8.5l5 3v9z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 5.5v2.2M13 3v2.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="3" y1="20.5" x2="21" y2="20.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-bottle" viewBox="0 0 24 24"><path d="M10 3h4v3.4l2 2.6v11a1.3 1.3 0 0 1-1.3 1.3H9.3A1.3 1.3 0 0 1 8 20V9l2-2.6V3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><line x1="8" y1="13" x2="16" y2="13" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-shelf" viewBox="0 0 24 24"><line x1="3" y1="8" x2="21" y2="8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><line x1="3" y1="16" x2="21" y2="16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="5.5" y="3.5" width="4" height="4.5" rx="0.6" fill="currentColor"/><rect x="11" y="2.8" width="4" height="5.2" rx="0.6" fill="currentColor"/><rect x="6" y="11.5" width="3.6" height="4.5" rx="0.6" fill="currentColor"/><rect x="13" y="11.8" width="3.6" height="4.2" rx="0.6" fill="currentColor"/></symbol>
+    <symbol id="i-cup" viewBox="0 0 24 24"><path d="M6 9h10l-1 10.3a1.2 1.2 0 0 1-1.2 1.1H8.2A1.2 1.2 0 0 1 7 19.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 11h1.6a2.2 2.2 0 0 1 0 4.4H15.4" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="5" y1="9" x2="19" y2="9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+    <symbol id="i-furnace" viewBox="0 0 24 24"><rect x="5" y="9" width="14" height="10.5" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 14c0-1.8 1.4-2.6 1.4-4 0-.9-.3-1.5-.7-2 .9.1 2.6.9 2.6 3.1 0 1.3-1 1.9-1 3a1.4 1.4 0 0 0 2.7.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.3" cy="6.3" r="0.9" fill="currentColor"/><circle cx="16.8" cy="5.4" r="0.7" fill="currentColor"/><circle cx="12.5" cy="4.3" r="0.6" fill="currentColor"/></symbol>
+    <symbol id="i-cycle" viewBox="0 0 24 24"><path d="M5 9a7 7 0 0 1 12.2-4.6M19 15a7 7 0 0 1-12.2 4.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M16.3 3.2l1 2.3-2.4.7M7.7 20.8l-1-2.3 2.4-.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-article" viewBox="0 0 24 24"><rect x="4" y="3.5" width="16" height="17" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><line x1="7.5" y1="8" x2="16.5" y2="8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="7.5" y1="12" x2="16.5" y2="12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="7.5" y1="16" x2="13" y2="16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 8.3l6 3.7-6 3.7z" fill="currentColor"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M4 15.3l1.3-5a2 2 0 0 1 1.9-1.4h9.6a2 2 0 0 1 1.9 1.4l1.3 5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><rect x="2.8" y="15.3" width="18.4" height="3.4" rx="1.3" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="7.2" cy="18.7" r="1.5" fill="var(--bg)" stroke="currentColor" stroke-width="1.5"/><circle cx="16.8" cy="18.7" r="1.5" fill="var(--bg)" stroke="currentColor" stroke-width="1.5"/></symbol>
+    <symbol id="i-phone-charge" viewBox="0 0 24 24"><rect x="7" y="2.2" width="10" height="19.6" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.4 5.6l-3.1 5.6h2.7l-2.1 5.4 5-6.8h-2.7z" fill="currentColor"/></symbol>
+  </defs>
+</svg>
+
+<div class="page">
+  <header class="showcase-header">
+    <h1>ЭкоНива Баллы</h1>
+    <p>Прототип программы лояльности «сдай банки — получи баллы — обменяй на продукты»</p>
+  </header>
+
+  <div class="phone">
+    <div class="phone-screen" id="phoneScreen">
+
+      <div class="dynamic-island"></div>
+      <div class="status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg viewBox="0 0 18 12" class="status-icon"><rect x="0" y="7" width="3" height="5" rx="0.5"/><rect x="5" y="4.5" width="3" height="7.5" rx="0.5"/><rect x="10" y="2" width="3" height="10" rx="0.5"/><rect x="15" y="0" width="3" height="12" rx="0.5" opacity="0.35"/></svg>
+          <svg viewBox="0 0 24 12" class="status-icon status-icon--battery"><rect x="0.5" y="1" width="20" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1"/><rect x="2" y="2.5" width="16" height="7" rx="1.2"/><rect x="21" y="4" width="2" height="4" rx="1"/></svg>
+        </div>
+      </div>
+
+      <div class="app-header">
+        <div class="brand">
+          <img src="images/ekoniva-logo.png" alt="ЭкоНива" class="brand__logo brand__logo--light">
+          <img src="images/ekoniva-logo-dark.png" alt="ЭкоНива" class="brand__logo brand__logo--dark">
+        </div>
+        <div class="header-right">
+          <div class="balance-pill" id="balancePill"><svg class="icon"><use href="#i-coin"/></svg><span id="balanceValue">0</span></div>
+          <button class="icon-btn" id="btnSettings" aria-label="Настройки"><svg class="icon"><use href="#i-sliders"/></svg></button>
+        </div>
+      </div>
+
+      <div class="screens">
+
+        <section class="screen active" data-screen="catalog">
+          <div class="catalog-pinned">
+            <div class="filters" id="filters"></div>
+          </div>
+          <div class="catalog-scroll">
+            <div class="grid" id="productGrid"></div>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="home">
+          <div class="streak-card">
+            <svg class="icon streak-flame"><use href="#i-flame"/></svg>
+            <div class="streak-text">
+              <span class="streak-value"><span id="streakWeeks">0</span> нед. подряд</span>
+              <span class="streak-sub">со сдачей банок каждую неделю</span>
+            </div>
+          </div>
+
+          <div class="hero-scene" id="heroScene">
+            <div class="hero-particles" id="heroParticles"></div>
+            <div class="hero-mascot" id="heroMascot">
+              <svg viewBox="0 0 120 120" class="hero-mascot__svg">
+                <ellipse cx="60" cy="110" rx="34" ry="6" fill="#000" opacity="0.08"/>
+
+                <!-- уровень 1: только семечко, без лица — остальное ещё не проросло -->
+                <g class="mascot-seed-form">
+                  <ellipse cx="60" cy="80" rx="14" ry="18" fill="url(#mascotBody)"/>
+                  <path d="M60 62c0-5 2-8 5-10" fill="none" stroke="var(--green)" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M56 78q2 2 4 0M64 78q2 2 4 0" fill="none" stroke="#1b1d18" stroke-width="1.6" stroke-linecap="round"/>
+                </g>
+
+                <!-- уровень 2+: тело персонажа; дальше только добавляются слои листвы/бутонов -->
+                <g class="mascot-body-group">
+                  <path class="mascot-leaf-side mascot-leaf-side--left" d="M24 52c-6 2-10 7-9 13 5 1 10-2 12-8 .6-2 .3-3.8-1-4.4-.6-.3-1.3-.5-2-.6z" fill="var(--green)"/>
+                  <path class="mascot-leaf-side mascot-leaf-side--right" d="M96 52c6 2 10 7 9 13-5 1-10-2-12-8-.6-2-.3-3.8 1-4.4.6-.3 1.3-.5 2-.6z" fill="var(--green)"/>
+
+                  <path class="mascot-leaf-canopy mascot-leaf-canopy--left" d="M46 18c-7 3-10 9-7 15 5-.5 10-4.5 11-11 .3-1.7-.2-3-1.3-3.6-.8-.4-1.7-.5-2.7-.4z" fill="var(--green)"/>
+                  <path class="mascot-leaf" d="M60 14c-7 4-10 11-6 18 6-1 12-6 13-14 .3-2-.3-3.4-1-4.2-2-.3-4 0-6 .2z" fill="var(--green)"/>
+                  <path class="mascot-leaf-canopy mascot-leaf-canopy--right" d="M74 18c7 3 10 9 7 15-5-.5-10-4.5-11-11-.3-1.7.2-3 1.3-3.6.8-.4 1.7-.5 2.7-.4z" fill="var(--green)"/>
+
+                  <g class="mascot-blossoms">
+                    <circle cx="48" cy="12" r="2.6" fill="var(--gold)"/>
+                    <circle cx="72" cy="10" r="2.3" fill="#ffb4d6"/>
+                    <circle cx="60" cy="26" r="2.1" fill="var(--gold)"/>
+                  </g>
+
+                  <path d="M60 24c-20 0-34 15-34 34 0 19 14 34 34 34s34-15 34-34c0-19-14-34-34-34z" fill="url(#mascotBody)"/>
+                  <ellipse cx="45" cy="56" rx="7" ry="8.5" fill="#1b1d18"/>
+                  <ellipse cx="75" cy="56" rx="7" ry="8.5" fill="#1b1d18"/>
+                  <circle cx="47.5" cy="53" r="2.3" fill="#fff"/>
+                  <circle cx="77.5" cy="53" r="2.3" fill="#fff"/>
+                  <ellipse cx="38" cy="68" rx="6" ry="3.6" fill="#ff9f7a" opacity="0.55"/>
+                  <ellipse cx="82" cy="68" rx="6" ry="3.6" fill="#ff9f7a" opacity="0.55"/>
+                  <path d="M48 72c4 5 20 5 24 0" fill="none" stroke="#1b1d18" stroke-width="2.6" stroke-linecap="round"/>
+                </g>
+
+                <defs>
+                  <linearGradient id="mascotBody" x1="26" y1="24" x2="94" y2="92" gradientUnits="userSpaceOnUse">
+                    <stop offset="0" stop-color="var(--green)"/>
+                    <stop offset="1" stop-color="var(--green-dark)"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+
+          <div class="level-hero" id="levelHero">
+            <div class="level-hero__pathwrap">
+              <svg class="level-hero__pathsvg" viewBox="0 0 400 40" preserveAspectRatio="none">
+                <path class="level-hero__path-base" d="M0,22 Q25,4 50,22 T100,22 T150,22 T200,22 T250,22 T300,22 T350,22 T400,22"/>
+                <path class="level-hero__path-progress" id="pathProgress" d="M0,22 Q25,4 50,22 T100,22 T150,22 T200,22 T250,22 T300,22 T350,22 T400,22"/>
+              </svg>
+              <div class="level-hero__truck" id="heroTruck"><svg class="icon"><use href="#i-truck"/></svg></div>
+            </div>
+            <div class="level-carousel" id="levelCarousel">
+              <div class="level-track" id="levelTrack"></div>
+            </div>
+            <div class="level-caption" id="levelCaption">Уровень 1 из 10 · Семечко</div>
+          </div>
+          <div class="eco-stat-row">
+            <div class="eco-stat-card eco-stat-card--aluminium">
+              <div class="eco-stat-card__icon"><svg class="icon"><use href="#i-cube"/></svg></div>
+              <div class="eco-stat-card__value" id="homeStatAluminium">0</div>
+              <div class="eco-stat-card__label">кг алюминия сдано</div>
+            </div>
+            <div class="eco-stat-card eco-stat-card--co2">
+              <div class="eco-stat-card__icon"><svg class="icon"><use href="#i-leaf"/></svg></div>
+              <div class="eco-stat-card__value" id="homeStatCO2">0</div>
+              <div class="eco-stat-card__label">кг CO₂ сэкономлено</div>
+            </div>
+          </div>
+          <div class="eco-equiv-row">
+            <div class="eco-equiv-card eco-equiv-card--car">
+              <div class="eco-equiv-card__icon"><svg class="icon"><use href="#i-car"/></svg></div>
+              <div class="eco-equiv-card__value"><span id="ecoEquivCar">0</span> км</div>
+              <div class="eco-equiv-card__label">без поездки на машине</div>
+            </div>
+            <div class="eco-equiv-card eco-equiv-card--phone">
+              <div class="eco-equiv-card__icon"><svg class="icon"><use href="#i-phone-charge"/></svg></div>
+              <div class="eco-equiv-card__value"><span id="ecoEquivPhone">0</span></div>
+              <div class="eco-equiv-card__label">зарядок телефона</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="screen" data-screen="articles">
+          <div class="protein-calc">
+            <h2 class="section-title">Калькулятор нормы белка</h2>
+            <label class="protein-calc__field">
+              <span>Вес, кг</span>
+              <input type="number" id="calcWeight" inputmode="numeric" min="30" max="200" placeholder="70">
+            </label>
+            <span class="protein-calc__label">Образ жизни</span>
+            <div class="segmented segmented--4" id="calcActivity">
+              <button data-activity="sedentary" class="active">Сидячий</button>
+              <button data-activity="moderate">Умеренный</button>
+              <button data-activity="active">Активный</button>
+            </div>
+            <p class="protein-calc__hint" id="calcActivityHint"></p>
+            <div class="protein-calc__divider"></div>
+            <div class="protein-calc__result" id="calcResult">Укажите вес, чтобы увидеть норму</div>
+            <p class="protein-calc__note">Ориентировочный расчёт, не медицинская рекомендация — проконсультируйтесь с врачом.</p>
+          </div>
+
+          <h2 class="section-title">Статьи</h2>
+          <div class="article-list" id="articleList"></div>
+
+          <h2 class="section-title">Видео с врачами</h2>
+          <div class="video-placeholder-row" id="videoPlaceholders"></div>
+        </section>
+
+        <section class="screen" data-screen="profile">
+          <div class="profile-header">
+            <div class="profile-header__avatar" id="profileAvatar">ЭН</div>
+            <div class="profile-header__name" id="profileName">Друг ЭкоНивы</div>
+          </div>
+
+          <div class="profile-balance">
+            <span class="profile-balance__label">Баланс баллов</span>
+            <span class="profile-balance__value" id="profileBalance">0</span>
+          </div>
+
+          <h2 class="section-title">Итого с вами</h2>
+          <div class="stat-row">
+            <div class="stat-card">
+              <svg class="icon stat-icon"><use href="#i-coin"/></svg>
+              <div class="stat-value" id="profileTotalPoints">0</div>
+              <div class="stat-label">баллов заработано</div>
+            </div>
+            <div class="stat-card">
+              <svg class="icon stat-icon"><use href="#i-cube"/></svg>
+              <div class="stat-value" id="profileTotalAlum">0</div>
+              <div class="stat-label">кг алюминия</div>
+            </div>
+            <div class="stat-card">
+              <svg class="icon stat-icon"><use href="#i-leaf"/></svg>
+              <div class="stat-value" id="profileTotalCO2">0</div>
+              <div class="stat-label">кг CO₂</div>
+            </div>
+          </div>
+
+          <h2 class="section-title">История начислений</h2>
+          <div class="archive-list" id="accrualList"></div>
+        </section>
+
+        <section class="screen" data-screen="purchases">
+          <div class="segmented" id="purchasesToggle">
+            <button data-purchases-view="pending" class="active">Ожидают получения</button>
+            <button data-purchases-view="archive">Архив покупок</button>
+          </div>
+          <div class="grid" id="pendingGrid"></div>
+          <div class="archive-list" id="purchasesArchiveList"></div>
+        </section>
+
+        <section class="screen screen--overlay" data-screen="product">
+          <div class="overlay-header">
+            <button class="icon-btn" data-close-overlay aria-label="Назад"><svg class="icon"><use href="#i-back"/></svg></button>
+            <span class="overlay-title">Товар</span>
+            <span class="overlay-header-spacer"></span>
+          </div>
+          <div class="product-detail" id="productDetail"></div>
+        </section>
+
+        <section class="screen screen--overlay" data-screen="pickup">
+          <div class="overlay-header">
+            <button class="icon-btn" data-close-overlay aria-label="Назад"><svg class="icon"><use href="#i-back"/></svg></button>
+            <span class="overlay-title">Получение товара</span>
+            <span class="overlay-header-spacer"></span>
+          </div>
+          <div class="pickup-detail" id="pickupDetail"></div>
+        </section>
+
+        <section class="screen screen--overlay" data-screen="article">
+          <div class="overlay-header">
+            <button class="icon-btn" data-close-overlay aria-label="Назад"><svg class="icon"><use href="#i-back"/></svg></button>
+            <span class="overlay-title">Статья</span>
+            <span class="overlay-header-spacer"></span>
+          </div>
+          <div class="article-detail" id="articleDetail"></div>
+        </section>
+
+        <section class="screen screen--overlay" data-screen="settings">
+          <div class="overlay-header">
+            <button class="icon-btn" data-close-overlay aria-label="Назад"><svg class="icon"><use href="#i-back"/></svg></button>
+            <span class="overlay-title">Настройки</span>
+            <span class="overlay-header-spacer"></span>
+          </div>
+          <div class="settings-body">
+            <h2 class="section-title">Тема</h2>
+            <div class="segmented" id="themeSegmented">
+              <button data-theme-choice="light">Светлая</button>
+              <button data-theme-choice="dark">Тёмная</button>
+              <button data-theme-choice="system">Системная</button>
+            </div>
+
+            <h2 class="section-title">Аккаунт</h2>
+            <div class="account-card">
+              <div class="account-avatar" id="accountAvatar">ЭН</div>
+              <input class="account-name-input" id="accountName" maxlength="24" placeholder="Ваше имя">
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <button class="recycle-bar" id="recycleBar">
+        <svg class="icon"><use href="#i-can"/></svg>
+        <span>Сдать банки <span class="recycle-bar__dot">·</span> переработать</span>
+      </button>
+      <nav class="tabbar">
+        <button class="tab active" data-tab="catalog"><svg class="icon"><use href="#i-shelf"/></svg><span>Каталог</span></button>
+        <button class="tab" data-tab="articles"><svg class="icon"><use href="#i-article"/></svg><span>Инфо</span></button>
+        <button class="tab" data-tab="home"><svg class="icon"><use href="#i-sprout"/></svg><span>Эко</span></button>
+        <button class="tab" data-tab="purchases">
+          <span class="tab-icon-wrap"><svg class="icon"><use href="#i-bag"/></svg><span class="tab-badge" id="purchasesBadge"></span></span>
+          <span>Покупки</span>
+        </button>
+        <button class="tab" data-tab="profile"><svg class="icon"><use href="#i-user"/></svg><span>Кабинет</span></button>
+      </nav>
+
+      <div class="home-indicator"></div>
+
+      <div class="toast-stack" id="toastStack"></div>
+      <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
+
+      <div class="level-up-popup" id="levelUpPopup">
+        <div class="level-up-popup__icon" id="levelUpIcon"><svg class="icon"><use href="#i-sapling"/></svg></div>
+        <div class="level-up-popup__title">Новый уровень!</div>
+        <div class="level-up-popup__name" id="levelUpName">Саженец</div>
+      </div>
+
+      <div class="sheet-backdrop" id="sheetBackdrop"></div>
+      <div class="sheet" id="sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-content" id="sheetContent"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
