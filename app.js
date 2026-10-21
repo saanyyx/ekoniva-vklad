@@ -307,7 +307,7 @@
 
   // ---------- home: уровень-дерево (10 ступеней) + яркая статистика ----------
   // двойная метафора: рост Листика (1-2) -> путь банки (3-9) -> оба смыкаются в 10 (новый слиток
-  // + новый росток разом). Без подписей-пояснений под названием — см. buildLevelTrack
+  // + новый росток разом). Без подписей-пояснений под названием — см. updateLevelBadge
   const LEVELS = [
     { n: 1, name: "Семечко", threshold: 0, icon: "i-seed" },
     { n: 2, name: "Поле", threshold: 40, icon: "i-sprout" },
@@ -365,98 +365,12 @@
     return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
   }
 
-  function buildLevelTrack() {
-    const track = document.getElementById("levelTrack");
-    // спейсеры — реальные flex-дети трека, а не padding на .level-track: конечный padding
-    // скролл-контейнера ненадёжно учитывается в scrollWidth в части браузеров/движков,
-    // из-за чего последняя карточка не докручивалась ровно до центра
-    const spacer = `<div class="level-track__spacer"></div>`;
-    track.innerHTML = spacer + LEVELS.map((l) => {
-      const casNeeded = Math.max(0, l.threshold - state.cansRecycled);
-      return `
-      <div class="level-card" data-level="${l.n}">
-        <div class="level-card__icon"><svg class="icon"><use href="#${l.icon}"/></svg></div>
-        <div class="level-card__num">УРОВЕНЬ ${l.n}</div>
-        <div class="level-card__hint">${casNeeded > 0 ? `ещё ${casNeeded} банок` : "достигнуто"}</div>
-      </div>`;
-    }).join("") + spacer;
-    track.querySelectorAll(".level-card").forEach((card, i) => {
-      card.classList.toggle("unlocked", LEVELS[i].threshold <= state.cansRecycled);
-      card.classList.toggle("level-final", LEVELS[i].n === 10);
-    });
-    updatePathProgress();
-    applyMascotLevel(levelForCans(state.cansRecycled));
-  }
-
-  // ---------- home: изогнутый путь + грузовик на закрашенной части ----------
-  function updatePathProgress() {
-    const path = document.getElementById("pathProgress");
-    const truck = document.getElementById("heroTruck");
-    if (!path || !truck) return;
-    const lvl = levelForCans(state.cansRecycled);
-    const nextThreshold = LEVELS[lvl.n] ? LEVELS[lvl.n].threshold : lvl.threshold;
-    const span = nextThreshold - lvl.threshold;
-    const within = span > 0 ? (state.cansRecycled - lvl.threshold) / span : 1;
-    const fraction = Math.min(1, ((lvl.n - 1) + within) / (LEVELS.length - 1));
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = String(len);
-    path.style.strokeDashoffset = String(len * (1 - fraction));
-    truck.style.left = `calc(${fraction * 100}% - ${fraction * 20}px)`;
-  }
-
-  // .level-track не имеет собственной определённой ширины (это скроллящийся контент), поэтому
-  // width:62%/padding:19% на нём резолвятся непредсказуемо (в т.ч. в headless Chrome ловился реальный
-  // баг: карточка 10 уровня не центрировалась, хотя была unlocked) — меряем реальную ширину
-  // карусели и задаём px-значения через CSS-переменные вместо процентов от неопределённого контейнера
-  function sizeLevelCards() {
-    const carousel = document.getElementById("levelCarousel");
-    if (!carousel) return;
-    const w = carousel.clientWidth;
-    carousel.style.setProperty("--level-pad", w * 0.19 + "px");
-    carousel.style.setProperty("--level-card-w", w * 0.62 + "px");
-  }
-
-  function initLevelCarousel() {
-    sizeLevelCards();
-    buildLevelTrack();
-    const carousel = document.getElementById("levelCarousel");
-    let ticking = false;
-    carousel.addEventListener("scroll", () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        updateCenteredCard();
-        ticking = false;
-      });
-    });
-    requestAnimationFrame(() => scrollToLevel(levelForCans(state.cansRecycled).n, true));
-  }
-
-  function updateCenteredCard() {
-    const carousel = document.getElementById("levelCarousel");
-    const cards = [...document.querySelectorAll(".level-card")];
-    const center = carousel.scrollLeft + carousel.clientWidth / 2;
-    let closest = cards[0];
-    let min = Infinity;
-    cards.forEach((card) => {
-      const d = Math.abs(card.offsetLeft + card.offsetWidth / 2 - center);
-      if (d < min) {
-        min = d;
-        closest = card;
-      }
-    });
-    cards.forEach((c) => c.classList.toggle("centered", c === closest));
-    const n = +closest.dataset.level;
-    const isCurrent = n === levelForCans(state.cansRecycled).n;
-    document.getElementById("levelCaption").textContent = `Уровень ${n} из 10${isCurrent ? " (текущий)" : ""}`;
-  }
-
-  function scrollToLevel(n, instant) {
-    const carousel = document.getElementById("levelCarousel");
-    const card = carousel.querySelector(`.level-card[data-level="${n}"]`);
-    if (!card) return;
-    const target = card.offsetLeft + card.offsetWidth / 2 - carousel.clientWidth / 2;
-    carousel.scrollTo({ left: target, behavior: instant ? "auto" : "smooth" });
+  // компактный бейдж уровня поверх карточки маскота — заменяет прежнюю карусель уровней
+  function updateLevelBadge() {
+    const level = levelForCans(state.cansRecycled);
+    const badge = document.getElementById("levelBadge");
+    if (badge) badge.textContent = `Уровень ${level.n}`;
+    applyMascotLevel(level);
   }
 
   function renderHome() {
@@ -896,7 +810,7 @@
       <div class="qty-points">= <b>${points} баллов</b></div>
       <div class="sheet-actions">
         <button class="sheet-btn sheet-btn--ghost" id="qtyCancel">Отмена</button>
-        <button class="sheet-btn sheet-btn--primary" id="qtyConfirm">Сдать и начислить</button>
+        <button class="sheet-btn sheet-btn--primary" id="qtyConfirm">Сдать</button>
       </div>
     `;
     document.querySelectorAll('#sheetContent [data-qty]').forEach((b) => {
@@ -938,15 +852,13 @@
     renderBalance(true);
     renderCatalog();
     renderProfile();
-    buildLevelTrack();
+    updateLevelBadge();
     renderHome();
 
     if (levelAfter.n > levelBefore.n) {
-      scrollToLevel(levelAfter.n);
       setTimeout(() => showLevelUpPopup(levelAfter), 400);
       showToast("i-coin", `+${earned} баллов начислено!`);
     } else {
-      updateCenteredCard();
       launchConfetti();
       showToast("i-coin", `+${earned} баллов начислено!`);
     }
@@ -1171,7 +1083,7 @@
   renderPurchases();
   renderArticles();
   renderSettings();
-  initLevelCarousel();
+  updateLevelBadge();
   renderHome();
   initHeroParticles();
   initMascotDrag();

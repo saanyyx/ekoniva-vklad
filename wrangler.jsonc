@@ -7,8 +7,5 @@
   },
   "assets": {
     "directory": "."
-  },
-  "routes": [
-    { "pattern": "ekoniva-vklad.site", "custom_domain": true }
-  ]
+  }
 }
